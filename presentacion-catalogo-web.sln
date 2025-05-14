@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "catalogo-web", "catalogo-web\catalogo-web.csproj", "{308147D2-6F43-42C5-B4CA-A0661F246EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dominio", "..\..\..\csharpescritorio\Tp\TPFinalNivel2\TPFinalNivel2_RamonVillarroel\dominio\dominio.csproj", "{E519C733-9D7A-4834-94EE-68AB45463E2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dominio", "dominio\dominio.csproj", "{E519C733-9D7A-4834-94EE-68AB45463E2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "negocio", "..\..\..\csharpescritorio\Tp\TPFinalNivel2\TPFinalNivel2_RamonVillarroel\negocio\negocio.csproj", "{F3DA859E-E6B4-42BC-9390-D944D51415A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "negocio", "negocio\negocio.csproj", "{F3DA859E-E6B4-42BC-9390-D944D51415A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilitarios", "..\..\..\csharpescritorio\Tp\TPFinalNivel2\TPFinalNivel2_RamonVillarroel\utilitarios\utilitarios.csproj", "{D14F8FE8-3649-4DA6-A776-3C4CF4D80CB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilitarios", "utilitarios\utilitarios.csproj", "{D14F8FE8-3649-4DA6-A776-3C4CF4D80CB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
