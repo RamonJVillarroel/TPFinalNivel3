@@ -1,4 +1,5 @@
-﻿using System;
+﻿using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,14 @@ namespace catalogo_web
     public partial class PanelAdmin : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
+        {
+            NegocioArticulo negocioArticulo = new NegocioArticulo();
+            dgvListadoProductos.DataSource = negocioArticulo.ListarArticulos();
+            dgvListadoProductos.DataBind();
+
+        }
+
+        protected void dgvListadoProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
