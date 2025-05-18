@@ -16,12 +16,12 @@ namespace catalogo_web
         {
             if (!IsPostBack)
             {
-                string id = Request.QueryString["id"];
-                Session["IdArticulo"] = id;
+               
                 try
                 {
                     NegocioArticulo negocioArticulo = new NegocioArticulo();
-                    ListaArticulos = negocioArticulo.ListarArticulos();
+                    Session.Add("productos", negocioArticulo.ListarArticulos());
+                    ListaArticulos =(List<dominio.Articulo>)Session["productos"];
                 }
                 catch (Exception ex)
                 {

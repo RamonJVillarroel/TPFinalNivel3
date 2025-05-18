@@ -12,7 +12,7 @@
 
         <div class="col">
             <div class="card" id="<%: articulo.IdArticulo %>">
-                <img src="<%: articulo.Imagen %>" class="card-img-top" alt="<%: articulo.NombreArticulo %>">
+                <img src="<%: articulo.Imagen %>" class=" img-fluid" style="width: 200px; height: 200px; object-fit: cover;" alt="<%: articulo.NombreArticulo %>">
                 <div class="card-body">
                     <h5 class="card-title"><%:articulo.NombreArticulo%></h5>
                     <p class="card-text"><%: articulo.Descripcion %></p>
@@ -20,7 +20,7 @@
 
                 </div>
              
-               <a class="btn btn-primary" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
+               <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
 
 
 
