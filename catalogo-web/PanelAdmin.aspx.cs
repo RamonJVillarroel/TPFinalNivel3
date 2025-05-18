@@ -21,6 +21,8 @@ namespace catalogo_web
         protected void dgvListadoProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            var id = dgvListadoProductos.SelectedDataKey.Value.ToString();
+            Response.Redirect("PanelModificarAdmin.aspx?id=" + id);
         }
     }
 }

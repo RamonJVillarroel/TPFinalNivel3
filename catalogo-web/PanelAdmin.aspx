@@ -8,12 +8,12 @@
                 <asp:BoundField HeaderText="Id" DataField="IdArticulo" />
                 <asp:BoundField HeaderText="Nombre" DataField="NombreArticulo" />
                 <asp:BoundField HeaderText="Precio" DataField="Precio" />
-                <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText="Modificar" />
+                <asp:CommandField HeaderText="Accion" ShowSelectButton="true"  SelectText="Modificar" />
 
             </Columns>
 
         </asp:GridView>
-        <a href="" class="btn btn-primary ">Agregar</a>
+        <a href="/PanelModificarAdmin" class="btn btn-primary ">Agregar</a>
 
     </div>
 

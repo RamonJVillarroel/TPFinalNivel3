@@ -119,6 +119,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="PanelAdmin.aspx" />
+    <Content Include="PanelModificarAdmin.aspx" />
     <Content Include="Perfil.aspx" />
     <Content Include="ProductoDetalle.aspx" />
     <Content Include="Productos.aspx" />
@@ -217,6 +218,13 @@
     </Compile>
     <Compile Include="PanelAdmin.aspx.designer.cs">
       <DependentUpon>PanelAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelModificarAdmin.aspx.cs">
+      <DependentUpon>PanelModificarAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelModificarAdmin.aspx.designer.cs">
+      <DependentUpon>PanelModificarAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Perfil.aspx.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
