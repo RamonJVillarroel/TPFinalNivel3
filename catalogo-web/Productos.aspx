@@ -2,6 +2,19 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1 class="text-center">Listado de productos</h1>
+    <div class="container bg-dark-subtle p-2 mb-1">
+        <label>Filtros:</label>
+        <asp:Button ID="btnMayorPrecio" runat="server" Text="Buscar por Mayor precio" CssClass="btn btn-outline-primary" OnClick="btnMayorPrecio_Click" />
+        <asp:Button ID="btnMenorPrecio" runat="server" Text="Buscar por Menor precio" CssClass="btn btn-outline-primary" OnClick="btnMenorPrecio_Click" />
+        <div class="p-1">
+            <label>Busqueda por categoria:</label>
+            <asp:DropDownList ID="ddlBusquedaCategoria" runat="server" CssClass="btn btn-outline-primary"></asp:DropDownList>
+            <asp:Button ID="btnBuscarCategoria" runat="server" Text="Buscar categoria" CssClass="btn btn-outline-primary" OnClick="btnBuscarCategoria_Click" />
+        </div>
+
+        <label>Limpiar filtro:</label>
+        <asp:Button ID="btnLimpiarFiltro" runat="server" Text="Limpiar filtro" OnClick="btnLimpiarFiltro_Click" CssClass="btn btn-outline-danger" />
+    </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <%
@@ -19,8 +32,8 @@
                     <p class="card-text"><%: articulo.Precio %></p>
 
                 </div>
-             
-               <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
+
+                <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
 
 
 
