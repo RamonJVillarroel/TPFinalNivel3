@@ -36,9 +36,9 @@ namespace catalogo_web
                     txtId.Text = seleccionado.IdArticulo.ToString();
                     txtCodigo.Text = seleccionado.CodArticulo.ToString();
                     txtNombreArticulo.Text = seleccionado.NombreArticulo.ToString();
-                    ddlMarca.Text = seleccionado.Marca.NombreMarca;
-                    ddlMarca.Text = seleccionado.Marca.ToString();
-                    ddlCategoria.Text = seleccionado.Categoria.ToString();
+                    ddlMarca.DataTextField = seleccionado.Marca.NombreMarca;
+                  
+                    ddlCategoria.DataTextField = seleccionado.Categoria.NombreCategoria;
                     txtUrlImagen.Text = seleccionado.Imagen.ToString();
                     txtPrecio.Text = seleccionado.Precio.ToString();
                     txtDescripcion.Text = seleccionado.Descripcion.ToString();
