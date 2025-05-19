@@ -12,9 +12,13 @@ namespace catalogo_web
 {
     public partial class Login : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+               
+            }
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
@@ -39,6 +43,32 @@ namespace catalogo_web
             {
                 Session.Add("error","Tenemos el siguiente error: " + ex.Message);
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            Usuarios usuario = new Usuarios();
+            NegocioUsuario negocioUsuario = new NegocioUsuario();
+            try
+            {
+                usuario.Email = txtEmaillogin.Text;
+                usuario.Password = txtPasswordlogin.Text;
+                if (negocioUsuario.Login(usuario))
+                {
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("Perfil.aspx", false);
+                }
+                else
+                {
+                    Session.Add("error", "User o Pass incorrectos");
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx",false);
             }
         }
     }
