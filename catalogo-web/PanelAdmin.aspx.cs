@@ -13,7 +13,8 @@ namespace catalogo_web
         protected void Page_Load(object sender, EventArgs e)
         {
             NegocioArticulo negocioArticulo = new NegocioArticulo();
-            dgvListadoProductos.DataSource = negocioArticulo.ListarArticulos();
+            Session.Add("ProductosAdmin", negocioArticulo.ListarArticulos());
+            dgvListadoProductos.DataSource = Session["ProductosAdmin"];
             dgvListadoProductos.DataBind();
 
         }
