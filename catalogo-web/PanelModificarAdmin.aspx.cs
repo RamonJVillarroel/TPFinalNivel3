@@ -13,10 +13,14 @@ namespace catalogo_web
     public partial class PanelModificarAdmin : System.Web.UI.Page
     {
         public string id;
+        public bool ConfirmaEliminar { get; set; }
+        public bool eliminar = false;
+        
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             id = Request.QueryString["id"];
+          
             if (!IsPostBack)
             {
                 
@@ -33,6 +37,8 @@ namespace catalogo_web
 
                 if (Session["ProductosAdmin"] != null && id != null)
                 {
+
+                    eliminar = true;
                     List<Articulo> temp = (List<Articulo>)Session["ProductosAdmin"];     
                     seleccionado = temp.Find(x => x.IdArticulo == int.Parse(id));
                     txtId.Text = seleccionado.IdArticulo.ToString();
@@ -99,6 +105,38 @@ namespace catalogo_web
 
 
 
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ConfirmaEliminar = true;
+             
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Tenemos un error: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void ConfirmarEliminar_Click(object sender, EventArgs e)
+        {
+            if (chkEliminar.Checked)
+            {
+                try
+                {
+                    NegocioArticulo negocioArticulo = new NegocioArticulo();
+                    negocioArticulo.eliminar(int.Parse(id));
+                    Response.Redirect("PanelAdmin.aspx", false);
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", "Tenemos un error: " + ex.Message);
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
         }
     }
 }
