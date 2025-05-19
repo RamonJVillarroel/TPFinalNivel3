@@ -18,9 +18,10 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <%
-
-            foreach (dominio.Articulo articulo in ListaArticulos)
+            if (ListaArticulos != null)
             {
+                foreach (dominio.Articulo articulo in ListaArticulos)
+                {
         %>
 
         <div class="col">
@@ -30,18 +31,26 @@
                     <h5 class="card-title"><%:articulo.NombreArticulo%></h5>
                     <p class="card-text"><%: articulo.Descripcion %></p>
                     <p class="card-text"><%: articulo.Precio %></p>
-
+                     
                 </div>
-
                 <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
+               
+                
+                
+                   
+                
 
 
 
             </div>
         </div>
         <%     
+                }
             }
-
+            else
+            {
         %>
+        <p>No hay articulos para mostrar</p>
+        <%} %>
     </div>
 </asp:Content>

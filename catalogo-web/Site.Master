@@ -52,6 +52,8 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Perfil">Perfil</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/PanelAdmin">Administracion</a></li>
                     </ul>
+                    <asp:Button ID="btnLogOut" runat="server" Text="LogOut" CssClass="btn btn-outline-danger" OnClick="btnLogOut_Click"/>
+                     <asp:Image ID="imgPerfil" runat="server" CssClass="rounded-circle me-3 p-1" Width="50" Height="50" />
                 </div>
             </div>
         </nav>
