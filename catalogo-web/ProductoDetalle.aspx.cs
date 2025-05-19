@@ -46,14 +46,29 @@ namespace catalogo_web
         {
             try
             {
-                if (Session["IdArticulo"] != null)
+                if (Session["IdArticulo"] != null && Session["usuario"]!=null)
                 {
+                    IdArticulo = Session["IdArticulo"].ToString();
+                    List<Articulo> temp = (List<Articulo>)Session["productos"];
+                    seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                    Favoritos favorito = new Favoritos();
+                    favorito.Articulo = seleccionado;
+                    Usuarios usuario = new Usuarios();
+                    usuario = (Usuarios)Session["usuario"];
+                    favorito.Usuarios = usuario;
+                    NegocioFavorito negocioFavorito = new NegocioFavorito();
+                    //mirar que no este agregando un favorito que ya tenga
+                    if (true)
+                    {
+                        negocioFavorito.NuevoFavorito(favorito);
+                    }
+                    
 
                 }
             }catch(Exception ex)
             {
                 Session.Add("error", "tenemos un error");
-                Response.Redirect("error.aspx", false)
+                Response.Redirect("error.aspx", false);
             }
 
 

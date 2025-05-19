@@ -20,15 +20,11 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "insert into Favorito( Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl,Precio) VALUES(@Codigo,@NombreArt,@Descripcion,@IdCategoria,@IdMarca,@img,@Precio)";
+                string consulta = "insert into FAVORITOS(IdArticulo, IdUser) VALUES(@IdArticulo,@IdUsuario)";
 
-                datos.Parametro("@Codigo", NuevoArt.CodArticulo);
-                datos.Parametro("@NombreArt", NuevoArt.NombreArticulo);
-                datos.Parametro("@Descripcion", NuevoArt.Descripcion);
-                datos.Parametro("@IdMarca", NuevoArt.Marca.IdMarca);
-                datos.Parametro("@IdCategoria", NuevoArt.Categoria.IdCategoria);
-                datos.Parametro("@img", NuevoArt.Imagen);
-                datos.Parametro("@Precio", NuevoArt.Precio);
+                datos.Parametro("@IdArticulo", NuevoFavorito.Articulo.IdArticulo);
+                datos.Parametro("@IdUsuario", NuevoFavorito.Usuarios.Id);
+                
                 datos.nuevaConsulta(consulta);
                 datos.ejecutarAccion();
             }
