@@ -37,7 +37,15 @@ namespace catalogo_web
             {
                 IdArticulo = Session["IdArticulo"].ToString();
                 List<Articulo> temp = (List<Articulo>)Session["productos"];
-                seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
+                if (temp !=null)
+                {
+                    seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                }
+                else
+                {
+                    seleccionado = tempfavoritos.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                }
 
             }
         }
@@ -72,6 +80,28 @@ namespace catalogo_web
             }
 
 
+
+        }
+
+        protected void btnEliminarFavoritos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["IdArticulo"] != null && Session["usuario"] != null && Session["favoritos"] != null)
+                {
+                    IdArticulo = Session["IdArticulo"].ToString();
+                    List<Articulo> temp = (List<Articulo>)Session["favoritos"];
+                    seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                    NegocioFavorito negocioFavorito = new NegocioFavorito();
+                    //validar que tenga favoritos antes de eliminar
+                    negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "tenemos un error");
+                Response.Redirect("error.aspx", false);
+            }
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using negocio;
+﻿using dominio;
+using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,23 @@ namespace catalogo_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            NegocioArticulo negocioArticulo = new NegocioArticulo();
-            Session.Add("ProductosAdmin", negocioArticulo.ListarArticulos());
-            dgvListadoProductos.DataSource = Session["ProductosAdmin"];
-            dgvListadoProductos.DataBind();
+
+            if (Seguridad.EsAdmin((Usuarios)Session["usuario"]))
+            {
+                NegocioArticulo negocioArticulo = new NegocioArticulo();
+                Session.Add("ProductosAdmin", negocioArticulo.ListarArticulos());
+                dgvListadoProductos.DataSource = Session["ProductosAdmin"];
+                dgvListadoProductos.DataBind();
+            }
+            if (Seguridad.sesionActiva((Usuarios)Session["usuario"]))
+            {
+                Response.Redirect("Perfil.aspx", false);
+            }
+            else
+            {
+                Response.Redirect("Login.aspx", false);
+            }
+
 
         }
 

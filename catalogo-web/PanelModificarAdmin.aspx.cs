@@ -19,6 +19,8 @@ namespace catalogo_web
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+           
+           
             id = Request.QueryString["id"];
           
             if (!IsPostBack)

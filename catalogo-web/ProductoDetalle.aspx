@@ -22,6 +22,7 @@
                     %>
                     <div class="d-flex justify-content-center">
                         <asp:Button ID="btnFavorios" runat="server" Text="Añadir a favoritos" CssClass="btn btn-outline-warning m-2" OnClick="btnFavorios_Click" />
+                        <asp:Button ID="btnEliminarFavoritos" runat="server" Text="Eliminar de Favoritos" CssClass="btn btn-outline-danger m-1" OnClick="btnEliminarFavoritos_Click" />
                     </div>
                     <%} %>
                 </div>

@@ -35,13 +35,6 @@
                 </div>
                 <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>
                
-                
-                
-                   
-                
-
-
-
             </div>
         </div>
         <%     

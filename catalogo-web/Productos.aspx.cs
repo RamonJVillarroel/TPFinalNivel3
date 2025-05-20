@@ -18,6 +18,7 @@ namespace catalogo_web
             {
                 if (!IsPostBack)
                 {
+                    
                     NegocioCategoria negocioCategoria = new NegocioCategoria();
                     ddlBusquedaCategoria.DataSource = negocioCategoria.ListarCategoria();
                     ddlBusquedaCategoria.DataTextField = "NombreCategoria";

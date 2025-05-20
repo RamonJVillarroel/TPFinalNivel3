@@ -44,34 +44,6 @@ namespace catalogo_web
 
         }
 
-        protected void btnEliminarFavoritos_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                
-                if (Session["usuario"] != null)
-                {
-                    
-                    NegocioFavorito negocioFavorito = new NegocioFavorito();
-                    //obtengo id de favoritos
-                    List<Favoritos> tempfav = negocioFavorito.ListaFavoritos();
-                    //saco los articulos del usuario en la session
-                    List<Articulo> temp = (List<Articulo>)Session["favoritos"];
-                    //intento de comparar con un while
-
-                 
-                    
-
-
-                    negocioFavorito.EliminarFavorito(favIdUsuario.Favorito.IdFavorito);
-                }
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", "tenemos un error");
-                Response.Redirect("error.aspx", false);
-            }
-
-        }
+       
     }
 }
