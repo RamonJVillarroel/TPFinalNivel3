@@ -24,5 +24,6 @@ namespace dominio
 
         public Marca Marca { get; set; }
         public Categoria Categoria { get; set; }
+        public Favoritos Favorito { get; set; }
     }
 }

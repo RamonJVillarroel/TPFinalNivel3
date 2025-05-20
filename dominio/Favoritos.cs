@@ -8,7 +8,7 @@ namespace dominio
 {
     public class Favoritos
     {
-        public int Id { get; set; }
+        public int IdFavorito { get; set; }
         public Articulo Articulo { get; set; }
         public Usuarios Usuarios { get; set; }
     }
