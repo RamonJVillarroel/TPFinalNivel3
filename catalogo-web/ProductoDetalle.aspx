@@ -16,6 +16,14 @@
                         <p class="card-text"><b>Categoria:</b> <%: seleccionado.Categoria %></p>
                         <p class="card-text"><b>Codigo:</b> <%: seleccionado.CodArticulo %></p>
                     </div>
+                    <%
+                        if (user)
+                        {
+                    %>
+                    <div class="d-flex justify-content-center">
+                        <asp:Button ID="btnFavorios" runat="server" Text="Añadir a favoritos" CssClass="btn btn-outline-warning m-2" OnClick="btnFavorios_Click" />
+                    </div>
+                    <%} %>
                 </div>
             </div>
         </div>

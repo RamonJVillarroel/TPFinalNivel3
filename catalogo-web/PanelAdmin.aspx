@@ -7,7 +7,7 @@
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="IdArticulo" />
                 <asp:BoundField HeaderText="Nombre" DataField="NombreArticulo" />
-                <asp:BoundField HeaderText="Precio" DataField="Precio" />
+                <asp:BoundField HeaderText="Precio" DataField="Precio"  />
                 <asp:CommandField HeaderText="Accion" ShowSelectButton="true"  SelectText="Modificar" />
 
             </Columns>

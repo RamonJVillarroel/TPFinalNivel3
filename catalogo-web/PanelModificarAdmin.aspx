@@ -4,7 +4,7 @@
     <h3 class="text-center">Administración de producto</h3>
     <div class="container d-flex justify-content-center">
         <div class="row">
-            <div class="">
+            <div class=" col-10">
                 <label class=" form-label">Id</label>
                 <asp:TextBox ID="txtId" runat="server" ReadOnly="true" CssClass="form-control" Enabled="true"></asp:TextBox>
                 <label class="form-label">Codigo</label>
@@ -29,16 +29,37 @@
                 </div>
 
                 <label class="form-label">Precio</label>
-                <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
 
                 <label class="form-label">Url Imagen</label>
                 <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" OnTextChanged="txtUrlImagen_TextChanged"></asp:TextBox>
                 <img src="<%= txtUrlImagen %>" alt="Alternate Text" />
             </div>
             <asp:Button ID="btnNuevoArt" runat="server" Text="Enviar" CssClass="btn btn-primary" OnClick="btnNuevoArt_Click" />
+            <%if (eliminar)
+                { %>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+
+
+                    <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" Text="Eliminar" CssClass="btn btn-danger" />
+
+                    <asp:CheckBox ID="chkEliminar" runat="server" Text="Confirmar Eliminar" />
+                    <%if (ConfirmaEliminar)
+                        { %>
+
+                    <div>
+                        <label class="alert alert-danger form-label">Eliminas completamente el Articulo, no lo podras recuperar. Debe estar marcado el check.</label>
+                        <div>
+                            <asp:Button ID="ConfirmarEliminar" OnClick="ConfirmarEliminar_Click" runat="server" Text="Eliminar" CssClass="btn btn-outline-danger" />
+                        </div>
+
+
+                    </div>
+                    <% }%>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <% } %>
         </div>
-
     </div>
-
-
 </asp:Content>

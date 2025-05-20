@@ -35,5 +35,41 @@ namespace negocio
                 datos.terminarConexion();
             }
         }
+
+        public bool Login(Usuarios usuarioLogin)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.nuevaConsulta("Select id, email, pass, admin, urlImagenPerfil, nombre, apellido from USERS Where email = @email And pass = @pass");
+                datos.Parametro("@email", usuarioLogin.Email);
+                datos.Parametro("@pass", usuarioLogin.Password);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    usuarioLogin.Id = (int)datos.Lector["id"];
+                    bool esAdmin = (bool)datos.Lector["admin"];
+                    usuarioLogin.TipoUser = esAdmin ? TipoUser.Admin : TipoUser.User;
+                    if (!(datos.Lector["urlImagenPerfil"] is DBNull))
+                        usuarioLogin.UrlImg = (string)datos.Lector["urlImagenPerfil"];
+                    if (!(datos.Lector["nombre"] is DBNull))
+                        usuarioLogin.Nombre = (string)datos.Lector["nombre"];
+                    if (!(datos.Lector["apellido"] is DBNull))
+                        usuarioLogin.Apellido = (string)datos.Lector["apellido"];
+
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.terminarConexion();
+            }
+        }
     }
 }
