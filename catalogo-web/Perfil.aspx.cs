@@ -58,9 +58,9 @@ namespace catalogo_web
                     //saco los articulos del usuario en la session
                     List<Articulo> temp = (List<Articulo>)Session["favoritos"];
                     //intento de comparar con un while
-                  
-                    seleccionado = temp.Find(x => x.Favorito.IdFavorito == int.Parse(id));
-                    seleccionadofav = tempfav.Find(x => x.IdFavorito == );
+
+                 
+                    
 
 
                     negocioFavorito.EliminarFavorito(favIdUsuario.Favorito.IdFavorito);

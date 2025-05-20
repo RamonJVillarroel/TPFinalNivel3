@@ -53,6 +53,7 @@ else { %>
                                 <p class="card-text"><%: articulo.Precio %></p>
 
                             </div>
+                            
                             <asp:Button ID="btnEliminarFavoritos" runat="server" Text="Eliminar de Favoritos" CssClass="btn btn-outline-danger m-1" OnClick="btnEliminarFavoritos_Click" />
                         </div>
                     </div>
