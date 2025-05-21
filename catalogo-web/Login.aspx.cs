@@ -17,7 +17,11 @@ namespace catalogo_web
         {
             if (!IsPostBack)
             {
-               
+                if (Seguridad.sesionActiva(Session["usuario"]))
+                {
+                    Session.Clear();
+                    return;
+                }
             }
         }
 
@@ -34,10 +38,11 @@ namespace catalogo_web
                 usuario.Apellido = txtApellido.Text;
                 usuario.UrlImg = txtUrlImg.Text;
                 usuario.TipoUser = 0;
+                //validar usuario nuevo
                 if(!string.IsNullOrWhiteSpace(usuario.Email) && !string.IsNullOrWhiteSpace(usuario.Password) )
                   usuarioNegocio.NuevoUsuario(usuario);
 
-                Response.Redirect("Productos.aspx", false);
+                Response.Redirect("Login.aspx", false);
             }
             catch (Exception ex)
             {

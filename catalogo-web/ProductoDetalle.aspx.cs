@@ -15,46 +15,68 @@ namespace catalogo_web
         public string IdArticulo;
         public bool user = false;
         public string id;
+        public bool esAdmin = true;
+        public bool btnFavorioseditar = false;
+        public bool btnEliminarFvs = true;
+        public bool noidart;
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] != null)
+            try
             {
-                user = true;
-            }
-            if (!IsPostBack)
-            {
-                id = Request.QueryString["id"];
-                if (!string.IsNullOrEmpty(id))
+                if (Session["usuario"] != null && Session["IdArticulo"] != null)
                 {
-                    Session["IdArticulo"] = id;
+                    user = true;
+                    if (Seguridad.EsAdmin(Session["usuario"]))
+                    {
+                        esAdmin = false;
+                    }
+                }
+                if (!IsPostBack)
+                {
+                    id = Request.QueryString["id"];
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        noidart = true;
+                        Session["IdArticulo"] = id;
+                    }
+
+                  
                 }
 
+                if (Session["IdArticulo"] != null)
+                {
+                    IdArticulo = Session["IdArticulo"].ToString();
+                    List<Articulo> temp = (List<Articulo>)Session["productos"];
+                    List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
+                   
+                    if (temp != null)
+                    {
+                        seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                    }
+                    else
+                    {
+                        seleccionado = tempfavoritos.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                    }
 
+                }
             }
-
-            if (Session["IdArticulo"] != null)
+            catch (Exception ex)
             {
-                IdArticulo = Session["IdArticulo"].ToString();
-                List<Articulo> temp = (List<Articulo>)Session["productos"];
-                List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
-                if (temp !=null)
-                {
-                    seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                }
-                else
-                {
-                    seleccionado = tempfavoritos.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                }
-
+                Session.Add("error", "tenemos un error" + ex.Message);
+                Response.Redirect("error.aspx", false);
             }
+            //validacion de favoritos
+            //aparece el boton si el articulo no esta en los favoritos de el usuario
+            //eliminara de favoritos si el articulo le pertenece a los favo del usuario
+
         }
-
+        
         protected void btnFavorios_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Session["IdArticulo"] != null && Session["usuario"]!=null)
+                if (Session["IdArticulo"] != null && Session["usuario"] != null)
                 {
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["productos"];
@@ -65,17 +87,21 @@ namespace catalogo_web
                     usuario = (Usuarios)Session["usuario"];
                     favorito.Usuarios = usuario;
                     NegocioFavorito negocioFavorito = new NegocioFavorito();
+
                     //mirar que no este agregando un favorito que ya tenga
                     if (true)
                     {
                         negocioFavorito.NuevoFavorito(favorito);
+                        Response.Redirect("Perfil.aspx", false);
                     }
-                    
+
+
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error");
+                Session.Add("error", "tenemos un error" + ex.Message);
                 Response.Redirect("error.aspx", false);
             }
 
@@ -95,6 +121,7 @@ namespace catalogo_web
                     NegocioFavorito negocioFavorito = new NegocioFavorito();
                     //validar que tenga favoritos antes de eliminar
                     negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
+                    Response.Redirect("Perfil.aspx", false);
                 }
             }
             catch (Exception ex)

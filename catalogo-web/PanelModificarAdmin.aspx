@@ -32,8 +32,8 @@
                 <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
 
                 <label class="form-label">Url Imagen</label>
-                <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" OnTextChanged="txtUrlImagen_TextChanged"></asp:TextBox>
-                <img src="<%= txtUrlImagen %>" alt="Alternate Text" />
+                <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" OnTextChanged="txtUrlImagen_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <img src=<%= UrlImagen %> alt="Alternate Text" />
             </div>
             <asp:Button ID="btnNuevoArt" runat="server" Text="Enviar" CssClass="btn btn-primary" OnClick="btnNuevoArt_Click" />
             <%if (eliminar)

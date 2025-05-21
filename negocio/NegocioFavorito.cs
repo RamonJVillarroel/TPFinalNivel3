@@ -72,7 +72,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdCategoria as IdCategoria, a.IdMarca as IdMarca, a.ImagenUrl, a.Precio, m.Descripcion as marca, c.Descripcion as categoria, fav.Id as fav FROM ARTICULOS AS a \r\ninner join CATEGORIAS as c on a.IdCategoria= c.Id \r\ninner join MARCAS as m on a.IdMarca= m.Id\r\ninner join FAVORITOS as fav ON IdUser = 1 AND IdArticulo = a.Id";
+                string consulta = "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdCategoria as IdCategoria, a.IdMarca as IdMarca, a.ImagenUrl, a.Precio, m.Descripcion as marca, c.Descripcion as categoria, fav.Id as fav FROM ARTICULOS AS a \r\ninner join CATEGORIAS as c on a.IdCategoria= c.Id \r\ninner join MARCAS as m on a.IdMarca= m.Id\r\ninner join FAVORITOS as fav ON IdUser = @IdUsuario AND IdArticulo = a.Id";
                 datos.Parametro("@IdUsuario", usuario.Id);
 
                 datos.nuevaConsulta(consulta);

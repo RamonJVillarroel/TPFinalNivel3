@@ -6,31 +6,38 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using utilitarios;
 namespace catalogo_web
 {
 
     public partial class SiteMaster : MasterPage
     {
         public bool usuariosesion = false;
+        public bool btnlogin =true;
+        public bool EsAdmin = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Seguridad.sesionActiva((Usuarios)Session["usuario"]))
+            Usuarios usuario = Session["usuario"] as Usuarios;
+
+            bool esPaginaPublica = Page is Login || Page is Error || Page is Productos || Page is ProductoDetalle || Page is _Default;
+
+            if (!esPaginaPublica && !Seguridad.sesionActiva(usuario))
             {
-                if (!(Page is Login || Page is Error || Page is Productos || Page is ProductoDetalle || Page is _Default))
-                {
-
-
-                    //Response.Redirect("Login.aspx", false);
-                    if (Seguridad.sesionActiva((Usuarios)Session["usuario"]))
-                    {
-                        usuariosesion = true;
-                        Usuarios usuario = new Usuarios();
-                        usuario = (Usuarios)Session["usuario"];
-                        imgPerfil.ImageUrl = usuario.UrlImg ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDCXek_M1agTePOBcSZfP1O9qobtNXYz4OVg&s";
-                    }
-                }
+                Response.Redirect("Login.aspx");
+               
             }
+            if (Seguridad.EsAdmin(usuario))
+            {
+                EsAdmin = true;
+                
+            }
+            if (Seguridad.sesionActiva(usuario))
+            {
+                usuariosesion = true;
+                btnlogin = false;
+                imgPerfil.ImageUrl = util.ObtenerUrlImagen(usuario.UrlImg);
+            }
+
 
 
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using utilitarios;
 
 namespace catalogo_web
 {
@@ -15,22 +16,37 @@ namespace catalogo_web
         public string id;
         public bool ConfirmaEliminar { get; set; }
         public bool eliminar = false;
-        
+        public string UrlImagen;
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-           
+
+
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
+            Usuarios usuario = (Usuarios)Session["usuario"];
+
+            if (!Seguridad.EsAdmin(usuario))
+            {
+                Response.Redirect("Perfil.aspx");
+               
+                return;
+            }
+
             id = Request.QueryString["id"];
-          
+            UrlImagen = util.ObtenerUrlImagen(txtUrlImagen.Text);
             if (!IsPostBack)
             {
-                
                 NegocioCategoria negocioCategoria = new NegocioCategoria();
                 ddlCategoria.DataSource = negocioCategoria.ListarCategoria();
                 ddlCategoria.DataTextField = "NombreCategoria";
                 ddlCategoria.DataValueField = "IdCategoria";
                 ddlCategoria.DataBind();
+
                 NegocioMarca negocioMarca = new NegocioMarca();
                 ddlMarca.DataSource = negocioMarca.ListarMarcas();
                 ddlMarca.DataTextField = "NombreMarca";
@@ -39,28 +55,28 @@ namespace catalogo_web
 
                 if (Session["ProductosAdmin"] != null && id != null)
                 {
-
                     eliminar = true;
-                    List<Articulo> temp = (List<Articulo>)Session["ProductosAdmin"];     
+                    List<Articulo> temp = (List<Articulo>)Session["ProductosAdmin"];
                     seleccionado = temp.Find(x => x.IdArticulo == int.Parse(id));
+
                     txtId.Text = seleccionado.IdArticulo.ToString();
                     txtCodigo.Text = seleccionado.CodArticulo.ToString();
                     txtNombreArticulo.Text = seleccionado.NombreArticulo.ToString();
-                    ddlMarca.Text = seleccionado.Marca.NombreMarca;
-                    ddlMarca.Text = seleccionado.Marca.IdMarca.ToString();
-                    ddlCategoria.Text = seleccionado.Categoria.IdCategoria.ToString();
-                    txtUrlImagen.Text = seleccionado.Imagen.ToString();
+                    ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
+                    ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
+                    txtUrlImagen.Text = seleccionado.Imagen;
+                    UrlImagen = util.ObtenerUrlImagen(seleccionado.Imagen);
                     txtPrecio.Text = seleccionado.Precio.ToString(CultureInfo.InvariantCulture);
                     txtDescripcion.Text = seleccionado.Descripcion.ToString();
                 }
-
             }
 
         }
 
         protected void txtUrlImagen_TextChanged(object sender, EventArgs e)
         {
-           // txtUrlImagen.Text = seleccionado.Imagen.ToString();
+           
+           UrlImagen = util.ObtenerUrlImagen(txtUrlImagen.Text);
         }
 
         protected void btnNuevoArt_Click(object sender, EventArgs e)
@@ -82,8 +98,8 @@ namespace catalogo_web
                     articuloNuevo.Categoria = new Categoria();
                     articuloNuevo.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
                     negocioArticulo.EditarArticulo(articuloNuevo);
-                    Response.Redirect("Default.aspx", false);
-                    
+                    Response.Redirect("PanelAdmin.aspx", false);
+
                 }
                 else
                 {
@@ -97,7 +113,7 @@ namespace catalogo_web
                     articuloNuevo.Categoria = new Categoria();
                     articuloNuevo.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
                     negocioArticulo.NuevoArticulo(articuloNuevo);
-                    Response.Redirect("Default.aspx", false);
+                    Response.Redirect("PanelAdmin.aspx", false);
                 }
             }
             catch (Exception ex) {

@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%:articulo.NombreArticulo%></h5>
                     <p class="card-text"><%: articulo.Descripcion %></p>
-                    <p class="card-text"><%: articulo.Precio %></p>
+                    <p class="card-text"><%: articulo.Precio.ToString("N2") %></p>
                      
                 </div>
                 <a class="btn btn-primary m-2" href='ProductoDetalle.aspx?id=<%:articulo.IdArticulo %>'>Detalle</a>

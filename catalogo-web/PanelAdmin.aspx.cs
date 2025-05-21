@@ -14,22 +14,26 @@ namespace catalogo_web
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Seguridad.EsAdmin((Usuarios)Session["usuario"]))
+            
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
+            Usuarios usuario = (Usuarios)Session["usuario"];
+            if (!Seguridad.EsAdmin(usuario))
+            {
+                Response.Redirect("Perfil.aspx");
+                return;
+            }
+            if (!IsPostBack)
             {
                 NegocioArticulo negocioArticulo = new NegocioArticulo();
-                Session.Add("ProductosAdmin", negocioArticulo.ListarArticulos());
+                Session["ProductosAdmin"] = negocioArticulo.ListarArticulos();
                 dgvListadoProductos.DataSource = Session["ProductosAdmin"];
                 dgvListadoProductos.DataBind();
             }
-            if (Seguridad.sesionActiva((Usuarios)Session["usuario"]))
-            {
-                Response.Redirect("Perfil.aspx", false);
-            }
-            else
-            {
-                Response.Redirect("Login.aspx", false);
-            }
-
 
         }
 

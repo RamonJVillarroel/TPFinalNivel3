@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using utilitarios;
 
 namespace catalogo_web
 {
@@ -13,8 +14,8 @@ namespace catalogo_web
     {
         public bool usuariosesion;
         public List<Articulo> ListaArticulos { get; set; }
-        public Articulo seleccionado { get; set; }
-        public Favoritos seleccionadofav {  get; set; }
+      
+        public bool esAdmin = true;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -27,12 +28,16 @@ namespace catalogo_web
                     lblNombre.Text = usuario.Nombre;
                     lblEmail.Text = usuario.Email;
                     lblTipo.Text = usuario.TipoUser.ToString();
-                    imgPerfil.ImageUrl = usuario.UrlImg ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDCXek_M1agTePOBcSZfP1O9qobtNXYz4OVg&s";
+                    imgPerfil.ImageUrl = util.ObtenerUrlImagen(usuario.UrlImg);
                    
                     NegocioFavorito negocioFavorito = new NegocioFavorito();
                     Session.Add("favoritos", negocioFavorito.FavoritosUsuarios(usuario));
                     ListaArticulos = (List<Articulo>)Session["favoritos"];
-                    
+                    if (Seguridad.EsAdmin((Usuarios)Session["usuario"]))
+                    {
+                        esAdmin = false;
+                    }
+
                 }
             }
             catch (Exception ex)

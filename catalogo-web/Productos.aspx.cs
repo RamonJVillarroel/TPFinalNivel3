@@ -6,16 +6,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using utilitarios;
 
 namespace catalogo_web
 {
     public partial class Productos : System.Web.UI.Page
     {
         public List<Articulo> ListaArticulos { get; set; }
+        public string urlImagen;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+
                 if (!IsPostBack)
                 {
                     
@@ -29,6 +32,7 @@ namespace catalogo_web
                         NegocioArticulo negocioArticulo = new NegocioArticulo();
                         Session.Add("productos", negocioArticulo.ListarArticulos());
                         ListaArticulos = (List<dominio.Articulo>)Session["productos"];
+                       
                     }
                     catch (Exception ex)
                     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using static System.Net.Mime.MediaTypeNames;
 
 namespace utilitarios
@@ -11,24 +12,20 @@ namespace utilitarios
     public class util
     {
         //metodo para la carga generica de imagenes
-        public void CargarImagen(PictureBox pictureBox, string imagen)
-        {
-            try
+     
+            private const string ImagenPorDefecto = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDCXek_M1agTePOBcSZfP1O9qobtNXYz4OVg&s";
+
+            public static string ObtenerUrlImagen(string imagen)
             {
-                if (!string.IsNullOrWhiteSpace(imagen))
+                if (!string.IsNullOrWhiteSpace(imagen)|| imagen ==" ")
                 {
-                    pictureBox.Load(imagen);
+                    return imagen;
                 }
-                else
-                {
-                    pictureBox.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDCXek_M1agTePOBcSZfP1O9qobtNXYz4OVg&s");
-                }
+
+                return ImagenPorDefecto;
             }
-            catch (Exception)
-            {
-                pictureBox.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDCXek_M1agTePOBcSZfP1O9qobtNXYz4OVg&s");
-            }
-        }
+        
+
         //metedo para eliminacion generica de columnas
         public void EliminadorColumnas(DataGridView dataGrid, string columna)
         {

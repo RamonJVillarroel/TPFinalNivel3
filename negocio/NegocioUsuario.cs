@@ -71,5 +71,9 @@ namespace negocio
                 datos.terminarConexion();
             }
         }
+
+        //modificar usuario
+
+        //eliminar usuario
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using utilitarios;
 
 namespace negocio
 {
@@ -24,6 +25,7 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     Articulo articulo = MapearArticulo(datos.Lector);
+                    articulo.Imagen=util.ObtenerUrlImagen(articulo.Imagen);
                     articulos.Add(articulo);
                 }  
                 return articulos;
