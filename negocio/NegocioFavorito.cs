@@ -151,5 +151,10 @@ namespace negocio
                 datos.terminarConexion();
             }
         }
+        //Buscar favoritos por id 
+        public bool BuscarFavoritoId(int IdFavorito)
+        {
+            return false;
+        }
     }
 }

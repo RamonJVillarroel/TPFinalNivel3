@@ -8,18 +8,49 @@
                 <%if (usuariosesion)
                     {
 
+
+
                 %>
                 <asp:Image ID="imgPerfil" runat="server" CssClass="rounded-circle me-3" Width="100" Height="100" />
                 <div>
                     <h3>
-                        <asp:Label ID="lblNombre" runat="server" /></h3>
+                        <asp:Label ID="lblNombre" runat="server" />
+
+                    </h3>
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                     <p class="text-muted">
                         <asp:Label ID="lblEmail" runat="server" />
                     </p>
                     <span class="badge bg-primary">
                         <asp:Label ID="lblTipo" runat="server" /></span>
+                    <div class="bg-dark m-2">
+                        <asp:Button ID="btnEditarUsuario" runat="server" Text="Editar Cuenta" CssClass="btn btn-outline-primary" OnClick="btnEditarUsuario_Click" />
+                        <asp:Button ID="btnEliminarCuenta" runat="server" Text="Eliminar Cuenta" CssClass="btn btn-danger" OnClick="btnEliminarCuenta_Click" />
+                    </div>
 
 
+                    <%if (editarCuenta)
+                        {  %>
+                    <div>
+                        <label class="alert alert-info">Editar cuenta</label>
+                        <div>
+                            <asp:CheckBox ID="chkEditarCuenta" runat="server" />
+                            <asp:Button ID="EditarCuentabtn" runat="server" Text="Button" CssClass="btn btn-primary" OnClick="EditarCuentabtn_Click" />
+                        </div>
+
+
+                    </div>
+
+                    <%} %>
+                    <%if (eliminarCuenta)
+                        {  %>
+                    <label class="alert alert-danger">Eliminar cuenta</label>
+                    <div>
+                        <asp:CheckBox ID="chkEliminarCuenta" runat="server" />
+                        <asp:Button ID="EliminarCuentabtn" runat="server" Text="Button" CssClass="btn btn-outline-danger" />
+                    </div>
+
+                    <%} %>
                 </div>
                 <%}
                     else

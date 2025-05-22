@@ -16,6 +16,8 @@ namespace catalogo_web
         public List<Articulo> ListaArticulos { get; set; }
       
         public bool esAdmin = true;
+        public bool eliminarCuenta = false;
+        public bool editarCuenta = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -49,6 +51,50 @@ namespace catalogo_web
 
         }
 
-       
+        protected void btnEliminarCuenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                eliminarCuenta = true;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "tenemos un error" + ex);
+                Response.Redirect("error.aspx", false);
+            }
+        }
+
+        protected void btnEditarUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                editarCuenta = true;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "tenemos un error" + ex);
+                Response.Redirect("error.aspx", false);
+            }
+        }
+
+        protected void EditarCuentabtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkEditarCuenta.Checked)
+                {
+                    
+                }
+                else
+                {
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "tenemos un error" + ex);
+                Response.Redirect("error.aspx", false);
+            }
+        }
     }
 }

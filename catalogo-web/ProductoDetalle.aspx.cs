@@ -16,9 +16,9 @@ namespace catalogo_web
         public bool user = false;
         public string id;
         public bool esAdmin = true;
-        public bool btnFavorioseditar = false;
-        public bool btnEliminarFvs = true;
-        public bool noidart;
+        //public bool btnFavorioseditar = false;
+        //public bool btnEliminarFvs = true;
+        //public bool noidart;
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +37,7 @@ namespace catalogo_web
                     id = Request.QueryString["id"];
                     if (!string.IsNullOrEmpty(id))
                     {
-                        noidart = true;
+                        
                         Session["IdArticulo"] = id;
                     }
 
@@ -46,6 +46,7 @@ namespace catalogo_web
 
                 if (Session["IdArticulo"] != null)
                 {
+                    
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["productos"];
                     List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
@@ -88,7 +89,7 @@ namespace catalogo_web
                     favorito.Usuarios = usuario;
                     NegocioFavorito negocioFavorito = new NegocioFavorito();
 
-                    //mirar que no este agregando un favorito que ya tenga
+                    //mirar que no este agregando un favorito que ya tenga, buscar por id de articulo
                     if (true)
                     {
                         negocioFavorito.NuevoFavorito(favorito);
@@ -113,7 +114,7 @@ namespace catalogo_web
         {
             try
             {
-                if (Session["IdArticulo"] != null && Session["usuario"] != null && Session["favoritos"] != null)
+                if (Session["IdArticulo"] != null && Session["usuario"] != null)
                 {
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["favoritos"];
