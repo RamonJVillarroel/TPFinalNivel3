@@ -16,6 +16,10 @@ namespace negocio
         // select* from FAVORITOS;
         /*consulta para buscar favoritos de un usuario*/
         //select IdArticulo from FAVORITOS where IdUser = 1;
+        /*busqueda por id de favoritos*/
+        //  select IdArticulo from FAVORITOS where IdUser = 3 and Id = 8
+        /*eliminar por id de favoritos*/
+        //delete from FAVORITOS where IdUser=3 and Id = 7
         public void NuevoFavorito(Favoritos NuevoFavorito)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -25,7 +29,7 @@ namespace negocio
 
                 datos.Parametro("@IdArticulo", NuevoFavorito.Articulo.IdArticulo);
                 datos.Parametro("@IdUsuario", NuevoFavorito.Usuarios.Id);
-                
+
                 datos.nuevaConsulta(consulta);
                 datos.ejecutarAccion();
             }
@@ -99,7 +103,7 @@ namespace negocio
         {
             return new Favoritos
             {
-                IdFavorito = (int)lector["Id"], 
+                IdFavorito = (int)lector["Id"],
             };
         }
         public List<Favoritos> ListaFavoritos()
@@ -109,13 +113,13 @@ namespace negocio
             try
             {
                 string consulta = "select * from favoritos";
-               
+
                 datos.nuevaConsulta(consulta);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    
+
                     Favoritos favorito = MapearFavorito(datos.Lector);
                     Favoritoslist.Add(favorito);
                 }
@@ -131,19 +135,21 @@ namespace negocio
                 datos.terminarConexion();
             }
         }
+        //Eliminar favoritos 
         public void EliminarFavorito(int IdFavorito)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                
+
                 string consulta = "delete From FAVORITOS where Id=@IdFavorito;";
                 datos.Parametro("@IdFavorito", IdFavorito);
                 datos.nuevaConsulta(consulta);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex) { 
-                throw ex; 
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {
@@ -151,9 +157,40 @@ namespace negocio
                 datos.terminarConexion();
             }
         }
-        //Buscar favoritos por id 
-        public bool BuscarFavoritoId(int IdFavorito)
+
+        //busqueda articulo por id de favoritos y usuario
+        //antes de guardar un favorito validar si tiene el articulo
+        //para eso, busco con id de usuario y id de articulo y si devuelve el id de un favorito es que tiene favorito
+        //retorno true
+        //retorno false para dar ok y continuar al grabado
+        public bool BuscarFavoritoId( int IdUser, int IdArt)
         {
+            List<Favoritos> Favoritoslist = new List<Favoritos>();
+            AccesoDatos datos = new AccesoDatos();
+            try {
+                string consulta = "select Id from FAVORITOS where IdUser = @IdUsuario and IdArticulo=IdArticulo";
+                datos.Parametro("@IdUsuario", IdUser);
+                datos.Parametro("@IdArticulo", IdArt);
+
+                datos.nuevaConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Articulo articulo = MapearArticulo(datos.Lector);
+                    Favoritoslist.Add(articulo);
+                }
+                return articulos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+                datos.terminarConexion();
+            }
             return false;
         }
     }
