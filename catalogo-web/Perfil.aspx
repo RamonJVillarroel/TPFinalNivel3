@@ -9,47 +9,75 @@
                     {
 
 
-
                 %>
                 <asp:Image ID="imgPerfil" runat="server" CssClass="rounded-circle me-3" Width="100" Height="100" />
                 <div>
                     <h3>
                         <asp:Label ID="lblNombre" runat="server" />
-
                     </h3>
-                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                     <p class="text-muted">
                         <asp:Label ID="lblEmail" runat="server" />
                     </p>
                     <span class="badge bg-primary">
                         <asp:Label ID="lblTipo" runat="server" /></span>
+                    <%if (esAdmin)
+                    {  %>
                     <div class="bg-dark m-2">
                         <asp:Button ID="btnEditarUsuario" runat="server" Text="Editar Cuenta" CssClass="btn btn-outline-primary" OnClick="btnEditarUsuario_Click" />
                         <asp:Button ID="btnEliminarCuenta" runat="server" Text="Eliminar Cuenta" CssClass="btn btn-danger" OnClick="btnEliminarCuenta_Click" />
                     </div>
+                    <%} %>
 
-
-                    <%if (editarCuenta)
+                    <%if (editarCuenta && esAdmin)
                         {  %>
-                    <div>
-                        <label class="alert alert-info">Editar cuenta</label>
+                    <div class="container">
+                        <div class="row">
+                            <label class="alert alert-info mt-2 mb-1">Editar cuenta</label>
+                            <label class=" form-label">Id</label>
+                            <asp:TextBox ID="txtIdUsuario" runat="server" ReadOnly="true" CssClass="form-control" Enabled="true"></asp:TextBox>
+                            <label class="form-label">Editar Email: </label>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                            <label class="form-label">Editar Password: </label>
+                            <asp:TextBox ID="txtPass" runat="server" CssClass="form-control"></asp:TextBox>
+                            <label class="form-label">Editar nombre: </label>
+                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                            <label class="form-label">Editar apellido: </label>
+                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control"></asp:TextBox>
+                            <label class="form-label">Editar url de imagen: </label>
+
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox ID="txturlImagen" runat="server"
+                                        CssClass="form-control"
+                                        AutoPostBack="true"
+                                        OnTextChanged="txturlImagen_TextChanged"
+                                        UpdateMode="Conditional" />
+
+                                    <img src="<%= UrlImagenUpdate %>" alt="Alternate Text" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+
+
+
+
+                        </div>
+
                         <div>
                             <asp:CheckBox ID="chkEditarCuenta" runat="server" />
-                            <asp:Button ID="EditarCuentabtn" runat="server" Text="Button" CssClass="btn btn-primary" OnClick="EditarCuentabtn_Click" />
+                            <asp:Button ID="EditarCuentabtn" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="EditarCuentabtn_Click" />
                         </div>
 
 
                     </div>
 
                     <%} %>
-                    <%if (eliminarCuenta)
+                    <%if (eliminarCuenta && esAdmin)
                         {  %>
                     <label class="alert alert-danger">Eliminar cuenta</label>
                     <div>
                         <asp:CheckBox ID="chkEliminarCuenta" runat="server" />
-                        <asp:Button ID="EliminarCuentabtn" runat="server" Text="Button" CssClass="btn btn-outline-danger" />
+                        <asp:Button ID="EliminarCuentabtn" runat="server" Text="Eliminar" CssClass="btn btn-outline-danger" OnClick="EliminarCuentabtn_Click" />
                     </div>
-
                     <%} %>
                 </div>
                 <%}

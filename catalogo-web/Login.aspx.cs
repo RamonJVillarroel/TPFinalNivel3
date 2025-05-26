@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using utilitarios;
 
 namespace catalogo_web
 {
@@ -36,7 +37,7 @@ namespace catalogo_web
                 usuario.Password = txtPassword.Text;
                 usuario.Nombre = txtNombre.Text;
                 usuario.Apellido = txtApellido.Text;
-                usuario.UrlImg = txtUrlImg.Text;
+                usuario.UrlImg = util.ObtenerUrlImagen(txtUrlImg.Text);
                 usuario.TipoUser = 0;
                 //validar usuario nuevo
                 if(!string.IsNullOrWhiteSpace(usuario.Email) && !string.IsNullOrWhiteSpace(usuario.Password) )
@@ -62,7 +63,7 @@ namespace catalogo_web
                 if (negocioUsuario.Login(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("Perfil.aspx", false);
+                    Response.Redirect("Default.aspx", false);
                 }
                 else
                 {

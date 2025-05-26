@@ -9,6 +9,7 @@ namespace negocio
 {
     public class NegocioUsuario
     {
+        //solo usuarios comunes, no admins
         public void NuevoUsuario(Usuarios NuevoUsuario)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -72,8 +73,40 @@ namespace negocio
             }
         }
 
-        //modificar usuario
+        //modificar usuario solo para comunes
+        public void actualizarUsuario(Usuarios ActualizarUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "update USERS SET email=@MailUsuario,pass=@PassUsuario,nombre=@NombreUsuario,apellido=@ApellidoUsuario, urlImagenPerfil=@img, admin=0 WHERE Id =@IdUsuario";
+                datos.Parametro("@IdUsuario", ActualizarUsuario.Id);
+                datos.Parametro("@MailUsuario", ActualizarUsuario.Email);
+                datos.Parametro("@PassUsuario", ActualizarUsuario.Password);
+                datos.Parametro("@NombreUsuario", ActualizarUsuario.Nombre);
+                datos.Parametro("@ApellidoUsuario", ActualizarUsuario.Apellido);
+                datos.Parametro("@img", ActualizarUsuario.UrlImg);
 
-        //eliminar usuario
+                datos.nuevaConsulta(consulta);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.terminarConexion(); }
+        }
+        //eliminar usuario  solo para comunes
+        public void EliminarUsuario(int IdUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+
+                string consulta = "delete From USERS where Id=@IdUsuario";
+                datos.Parametro("@IdUsuario", IdUsuario);
+                datos.nuevaConsulta(consulta);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.terminarConexion(); }
+        }
     }
 }

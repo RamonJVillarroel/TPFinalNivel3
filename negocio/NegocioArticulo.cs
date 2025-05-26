@@ -90,16 +90,17 @@ namespace negocio
         //eliminar un articulo por ID
         public void eliminar(int IdArticulo)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
+                
                 string consulta = "delete From ARTICULOS where Id=@IdArticulo;";
                 datos.Parametro("@IdArticulo", IdArticulo);
                 datos.nuevaConsulta(consulta);
                 datos.ejecutarAccion();
             }
             catch (Exception ex) { throw ex; }
-
+            finally { datos.terminarConexion(); }
 
         }
         //Mapeo de articulos
