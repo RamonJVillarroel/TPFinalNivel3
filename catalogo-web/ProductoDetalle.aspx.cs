@@ -142,12 +142,17 @@ namespace catalogo_web
                   
                     NegocioFavorito negocioFavorito = new NegocioFavorito(); 
                     //busco si tiene el articulo en favorito
+                    //si lo tiene continuo a buscarlos en los favoritos en sesion para eliminarlo
                     if (negocioFavorito.BuscarFavoritoId(usuario.Id, int.Parse(IdArticulo)))
                     {
                         List<Articulo> temp = (List<Articulo>)Session["favoritos"];
                         seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                        negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
-                        Response.Redirect("Perfil.aspx", false);
+                        if (seleccionado != null && seleccionado.Favorito != null)
+                        {
+                            negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
+                            Response.Redirect("Perfil.aspx", false);
+                        }
+                        
                     }
                     else
                     {
