@@ -39,11 +39,11 @@ namespace catalogo_web
                 usuario.Apellido = txtApellido.Text;
                 usuario.UrlImg = util.ObtenerUrlImagen(txtUrlImg.Text);
                 usuario.TipoUser = 0;
-                //validar usuario nuevo
+                //validar que mail y password no sean vacios
                 if(!string.IsNullOrWhiteSpace(usuario.Email) && !string.IsNullOrWhiteSpace(usuario.Password) )
                   usuarioNegocio.NuevoUsuario(usuario);
 
-                Response.Redirect("Login.aspx", false);
+                Response.Redirect("Default.aspx", false);
             }
             catch (Exception ex)
             {
@@ -67,14 +67,12 @@ namespace catalogo_web
                 }
                 else
                 {
-                    //trabajar validaciones
-                    Session["loginError"] = true;
                     Response.Redirect("Login.aspx", false);
                 }
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                Session.Add("error", "Tenemos un error no esperado: "+ ex.ToString());
                 Response.Redirect("Error.aspx",false);
             }
         }

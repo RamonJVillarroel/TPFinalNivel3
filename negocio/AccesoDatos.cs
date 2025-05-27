@@ -22,7 +22,10 @@ namespace negocio
         /// </summary>
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
+            //configuracion local
+            //conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
+            //configuracion remota
+            conexion = new SqlConnection("workstation id=catalogo-web-tpfinal.mssql.somee.com;packet size=4096;user id=Rambiz_SQLLogin_2;pwd=b144soar3j;data source=catalogo-web-tpfinal.mssql.somee.com;persist security info=False;initial catalog=catalogo-web-tpfinal;TrustServerCertificate=True");
             comando = new SqlCommand();
         }
         public void nuevaConsulta(string consulta)

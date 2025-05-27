@@ -56,7 +56,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error" + ex.Message);
+                Session.Add("error", "tenemos un error: " + ex.Message);
                 Response.Redirect("error.aspx", false);
             }
         }
@@ -89,7 +89,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error" + ex.Message);
+                Session.Add("error", "tenemos un error: " + ex.Message);
                 Response.Redirect("error.aspx", false);
             }
 
@@ -130,7 +130,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error");
+                Session.Add("error", "tenemos un error: "+ ex.Message.ToString());
                 Response.Redirect("error.aspx", false);
             }
 

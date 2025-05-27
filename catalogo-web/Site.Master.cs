@@ -13,32 +13,32 @@ namespace catalogo_web
     public partial class SiteMaster : MasterPage
     {
         public bool usuariosesion = false;
-        public bool btnlogin =true;
+        public bool btnlogin = true;
         public bool EsAdmin = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
- Usuarios usuario = Session["usuario"] as Usuarios;
+                Usuarios usuario = Session["usuario"] as Usuarios;
 
-            bool esPaginaPublica = Page is Login || Page is Error || Page is Productos || Page is ProductoDetalle || Page is _Default;
+                bool esPaginaPublica = Page is Login || Page is Error || Page is Productos || Page is ProductoDetalle || Page is _Default;
 
-            if (!esPaginaPublica && !Seguridad.sesionActiva(usuario))
-            {
-                Response.Redirect("Login.aspx");
-               
-            }
-            if (Seguridad.EsAdmin(usuario))
-            {
-                EsAdmin = true;
-                
-            }
-            if (Seguridad.sesionActiva(usuario))
-            {
-                usuariosesion = true;
-                btnlogin = false;
-                imgPerfil.ImageUrl = util.ObtenerUrlImagen(usuario.UrlImg);
-            }
+                if (!esPaginaPublica && !Seguridad.sesionActiva(usuario))
+                {
+                    Response.Redirect("Login.aspx");
+
+                }
+                if (Seguridad.EsAdmin(usuario))
+                {
+                    EsAdmin = true;
+
+                }
+                if (Seguridad.sesionActiva(usuario))
+                {
+                    usuariosesion = true;
+                    btnlogin = false;
+                    imgPerfil.ImageUrl = util.ObtenerUrlImagen(usuario.UrlImg);
+                }
             }
             catch (Exception ex)
             {

@@ -50,7 +50,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error" + ex.Message);
+                Session.Add("error", "tenemos un error: " + ex.Message);
                 Response.Redirect("error.aspx", false);
             }
 
@@ -65,7 +65,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error", "tenemos un error" + ex);
+                Session.Add("error", "tenemos un error: " + ex);
                 Response.Redirect("error.aspx", false);
             }
         }
@@ -140,10 +140,6 @@ namespace catalogo_web
                     negocioUsuario.EliminarUsuario(usuario.Id);
                     Session.Clear();
                     Response.Redirect("Productos.aspx", false);
-                }
-                else
-                {
-
                 }
             }
             catch (Exception ex)
