@@ -73,7 +73,7 @@
                     <%} %>
                     <%if (eliminarCuenta && esAdmin)
                         {  %>
-                    <label class="alert alert-danger">Eliminar cuenta</label>
+                    <label class="alert alert-danger">Eliminar cuenta. Debes marcar el check</label>
                     <div>
                         <asp:CheckBox ID="chkEliminarCuenta" runat="server" />
                         <asp:Button ID="EliminarCuentabtn" runat="server" Text="Eliminar" CssClass="btn btn-outline-danger" OnClick="EliminarCuentabtn_Click" />

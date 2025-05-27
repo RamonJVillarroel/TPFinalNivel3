@@ -17,7 +17,9 @@ namespace catalogo_web
         public bool EsAdmin = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Usuarios usuario = Session["usuario"] as Usuarios;
+            try
+            {
+ Usuarios usuario = Session["usuario"] as Usuarios;
 
             bool esPaginaPublica = Page is Login || Page is Error || Page is Productos || Page is ProductoDetalle || Page is _Default;
 
@@ -37,9 +39,12 @@ namespace catalogo_web
                 btnlogin = false;
                 imgPerfil.ImageUrl = util.ObtenerUrlImagen(usuario.UrlImg);
             }
-
-
-
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", "Tenemos un error: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnLogOut_Click(object sender, EventArgs e)

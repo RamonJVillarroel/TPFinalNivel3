@@ -33,7 +33,7 @@
 
                 <label class="form-label">Url Imagen</label>
                 <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" OnTextChanged="txtUrlImagen_TextChanged" AutoPostBack="true"></asp:TextBox>
-                <img src=<%= UrlImagen %> alt="Alternate Text" />
+                <img src="<%= UrlImagen %>" alt="Alternate Text" />
             </div>
             <asp:Button ID="btnNuevoArt" runat="server" Text="Enviar" CssClass="btn btn-primary" OnClick="btnNuevoArt_Click" />
             <%if (eliminar)
@@ -41,8 +41,10 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
+                 
+                        <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" Text="Eliminar" CssClass="btn btn-danger  mt-1" />
 
-                    <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" Text="Eliminar" CssClass="btn btn-danger" />
+                   
 
                     <asp:CheckBox ID="chkEliminar" runat="server" Text="Confirmar Eliminar" />
                     <%if (ConfirmaEliminar)

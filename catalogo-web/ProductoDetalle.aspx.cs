@@ -16,71 +16,42 @@ namespace catalogo_web
         public bool user = false;
         public string id;
         public bool esAdmin = true;
-        //public bool btnFavorioseditar = false;
-        //public bool btnEliminarFvs = true;
-        // public bool noidart= false;
+       
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+              
+                if (!IsPostBack)
+                {
+                    id = Request.QueryString["id"];
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        Session["IdArticulo"] = id;
+                    }
+                }
 
+         
                 if (Session["IdArticulo"] != null)
                 {
-
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["productos"];
                     List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
 
                     if (temp != null)
-                    {
                         seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                    }
                     else
-                    {
                         seleccionado = tempfavoritos.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                    }
-
                 }
-                //noidart = true;
+
                 if (Session["usuario"] != null && Session["IdArticulo"] != null)
                 {
-                    //noidart = true;
                     user = true;
                     if (Seguridad.EsAdmin(Session["usuario"]))
                     {
                         esAdmin = false;
                     }
-                }
-                if (!IsPostBack)
-                {
-                    //noidart = true;
-                    id = Request.QueryString["id"];
-                    if (!string.IsNullOrEmpty(id))
-                    {
-
-                        Session["IdArticulo"] = id;
-                    }
-
-
-                }
-
-                if (Session["IdArticulo"] != null)
-                {
-                    //noidart = true;
-                    IdArticulo = Session["IdArticulo"].ToString();
-                    List<Articulo> temp = (List<Articulo>)Session["productos"];
-                    List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
-
-                    if (temp != null)
-                    {
-                        seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                    }
-                    else
-                    {
-                        seleccionado = tempfavoritos.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                    }
-
                 }
             }
             catch (Exception ex)
@@ -88,10 +59,6 @@ namespace catalogo_web
                 Session.Add("error", "tenemos un error" + ex.Message);
                 Response.Redirect("error.aspx", false);
             }
-            //validacion de favoritos
-            //aparece el boton si el articulo no esta en los favoritos de el usuario
-            //eliminara de favoritos si el articulo le pertenece a los favo del usuario
-
         }
 
         protected void btnFavorios_Click(object sender, EventArgs e)

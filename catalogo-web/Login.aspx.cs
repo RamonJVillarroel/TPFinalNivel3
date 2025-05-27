@@ -47,7 +47,7 @@ namespace catalogo_web
             }
             catch (Exception ex)
             {
-                Session.Add("error","Tenemos el siguiente error: " + ex.Message);
+                Session.Add("error","Tenemos el siguiente error: " + ex.Message.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -63,11 +63,11 @@ namespace catalogo_web
                 if (negocioUsuario.Login(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("Productos.aspx", false);
+                    Response.Redirect("Perfil.aspx", false);
                 }
                 else
                 {
-                    Session.Add("error", "User o Pass incorrectos");
+                    Session.Add("error", "User o Pass incorrectos ");
                     Response.Redirect("Error.aspx", false);
                 }
             }
