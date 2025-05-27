@@ -25,7 +25,7 @@ namespace utilitarios
                 return ImagenPorDefecto;
             }
         
-
+        //No usado para este proyecto
         //metedo para eliminacion generica de columnas
         public void EliminadorColumnas(DataGridView dataGrid, string columna)
         {
