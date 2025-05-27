@@ -67,8 +67,9 @@ namespace catalogo_web
                 }
                 else
                 {
-                    Session.Add("error", "User o Pass incorrectos ");
-                    Response.Redirect("Error.aspx", false);
+                    //trabajar validaciones
+                    Session["loginError"] = true;
+                    Response.Redirect("Login.aspx", false);
                 }
             }
             catch (Exception ex)
