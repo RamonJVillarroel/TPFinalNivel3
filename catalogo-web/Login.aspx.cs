@@ -63,7 +63,7 @@ namespace catalogo_web
                 if (negocioUsuario.Login(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("Default.aspx", false);
+                    Response.Redirect("Productos.aspx", false);
                 }
                 else
                 {

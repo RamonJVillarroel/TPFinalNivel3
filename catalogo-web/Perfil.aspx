@@ -21,7 +21,7 @@
                     <span class="badge bg-primary">
                         <asp:Label ID="lblTipo" runat="server" /></span>
                     <%if (esAdmin)
-                    {  %>
+                        {  %>
                     <div class="bg-dark m-2">
                         <asp:Button ID="btnEditarUsuario" runat="server" Text="Editar Cuenta" CssClass="btn btn-outline-primary" OnClick="btnEditarUsuario_Click" />
                         <asp:Button ID="btnEliminarCuenta" runat="server" Text="Eliminar Cuenta" CssClass="btn btn-danger" OnClick="btnEliminarCuenta_Click" />

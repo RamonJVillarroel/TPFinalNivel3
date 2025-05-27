@@ -18,16 +18,16 @@ namespace catalogo_web
         public bool esAdmin = true;
         //public bool btnFavorioseditar = false;
         //public bool btnEliminarFvs = true;
-       // public bool noidart= false;
+        // public bool noidart= false;
         public Articulo seleccionado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-             
+
                 if (Session["IdArticulo"] != null)
                 {
-                   
+
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["productos"];
                     List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
@@ -58,11 +58,11 @@ namespace catalogo_web
                     id = Request.QueryString["id"];
                     if (!string.IsNullOrEmpty(id))
                     {
-                        
+
                         Session["IdArticulo"] = id;
                     }
 
-                  
+
                 }
 
                 if (Session["IdArticulo"] != null)
@@ -71,7 +71,7 @@ namespace catalogo_web
                     IdArticulo = Session["IdArticulo"].ToString();
                     List<Articulo> temp = (List<Articulo>)Session["productos"];
                     List<Articulo> tempfavoritos = (List<Articulo>)Session["favoritos"];
-                   
+
                     if (temp != null)
                     {
                         seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
@@ -93,7 +93,7 @@ namespace catalogo_web
             //eliminara de favoritos si el articulo le pertenece a los favo del usuario
 
         }
-        
+
         protected void btnFavorios_Click(object sender, EventArgs e)
         {
             try
@@ -109,15 +109,14 @@ namespace catalogo_web
                     usuario = (Usuarios)Session["usuario"];
                     favorito.Usuarios = usuario;
                     NegocioFavorito negocioFavorito = new NegocioFavorito();
-
+                    //busqueda de favoritos
                     //mirar que no este agregando un favorito que ya tenga, buscar por id de articulo
-                    if (true)
+                    //Niego si es verdadero para que no entre en el if
+                    if (!(negocioFavorito.BuscarFavoritoId(usuario.Id, seleccionado.IdArticulo)))
                     {
                         negocioFavorito.NuevoFavorito(favorito);
                         Response.Redirect("Perfil.aspx", false);
                     }
-
-
 
                 }
             }
@@ -137,13 +136,24 @@ namespace catalogo_web
             {
                 if (Session["IdArticulo"] != null && Session["usuario"] != null)
                 {
+                    Usuarios usuario = new Usuarios();
+                    usuario = (Usuarios)Session["usuario"];
                     IdArticulo = Session["IdArticulo"].ToString();
-                    List<Articulo> temp = (List<Articulo>)Session["favoritos"];
-                    seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
-                    NegocioFavorito negocioFavorito = new NegocioFavorito();
-                    //validar que tenga favoritos antes de eliminar
-                    negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
-                    Response.Redirect("Perfil.aspx", false);
+                  
+                    NegocioFavorito negocioFavorito = new NegocioFavorito(); 
+                    //busco si tiene el articulo en favorito
+                    if (negocioFavorito.BuscarFavoritoId(usuario.Id, int.Parse(IdArticulo)))
+                    {
+                        List<Articulo> temp = (List<Articulo>)Session["favoritos"];
+                        seleccionado = temp.Find(x => x.IdArticulo == int.Parse(IdArticulo));
+                        negocioFavorito.EliminarFavorito(seleccionado.Favorito.IdFavorito);
+                        Response.Redirect("Perfil.aspx", false);
+                    }
+                    else
+                    {
+                        Response.Redirect("Productos.aspx", false);
+                    }
+
                 }
             }
             catch (Exception ex)

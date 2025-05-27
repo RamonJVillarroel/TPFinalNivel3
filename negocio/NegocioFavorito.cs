@@ -18,7 +18,7 @@ namespace negocio
         //select IdArticulo from FAVORITOS where IdUser = 1;
         /*busqueda por id de favoritos*/
         //  select IdArticulo from FAVORITOS where IdUser = 3 and Id = 8
-        /*eliminar por id de favoritos*/
+        /*eliminar por id de favoritos  y id de usuario*/
         //delete from FAVORITOS where IdUser=3 and Id = 7
         public void NuevoFavorito(Favoritos NuevoFavorito)
         {
@@ -159,16 +159,17 @@ namespace negocio
         }
 
         //busqueda articulo por id de favoritos y usuario
-        //antes de guardar un favorito validar si tiene el articulo
-        //para eso, busco con id de usuario y id de articulo y si devuelve el id de un favorito es que tiene favorito
+        //antes de guardar un favorito validamos si tiene el articulo
+        //para eso, busco con id de usuario y id de articulo y
+        //si devuelve el id de un favorito es que tiene favorito y
         //retorno true
-        //retorno false para dar ok y continuar al grabado
+        //retorno false para dar ok y continuar al grabado del nuevo favorito
         public bool BuscarFavoritoId( int IdUser, int IdArt)
         {
             List<Favoritos> Favoritoslist = new List<Favoritos>();
             AccesoDatos datos = new AccesoDatos();
             try {
-                string consulta = "select Id from FAVORITOS where IdUser = @IdUsuario and IdArticulo=IdArticulo";
+                string consulta = "select Id from FAVORITOS where IdUser = @IdUsuario and IdArticulo=@IdArticulo";
                 datos.Parametro("@IdUsuario", IdUser);
                 datos.Parametro("@IdArticulo", IdArt);
 
@@ -177,10 +178,14 @@ namespace negocio
 
                 while (datos.Lector.Read())
                 {
-                    Articulo articulo = MapearArticulo(datos.Lector);
+                    Favoritos articulo = MapearFavorito(datos.Lector);
                     Favoritoslist.Add(articulo);
                 }
-                return articulos;
+                foreach (var item in Favoritoslist)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -191,7 +196,7 @@ namespace negocio
 
                 datos.terminarConexion();
             }
-            return false;
+            
         }
     }
 }

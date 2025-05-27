@@ -76,8 +76,6 @@ namespace catalogo_web
             {
                 editarCuenta = true;
 
-
-
                 Usuarios usuario = (Usuarios)Session["usuario"];
                 txtIdUsuario.Text = usuario.Id.ToString();
                 txtEmail.Text = usuario.Email;
@@ -141,7 +139,7 @@ namespace catalogo_web
                     Usuarios usuario = (Usuarios)Session["usuario"];
                     negocioUsuario.EliminarUsuario(usuario.Id);
                     Session.Clear();
-                    Response.Redirect("Default.aspx", false);
+                    Response.Redirect("Productos.aspx", false);
                 }
                 else
                 {
